@@ -28,6 +28,10 @@ func (server *Server) run() {
 			server.join(action.client, action.args)
 		case ACT_ROOMS:
 			server.listRoom(action.client)
+		case ACT_MSG:
+			server.msg(action.client, action.args)
+		case ACT_QUIT:
+			server.quit(action.client, action.args)
 		}
 
 	}
@@ -92,3 +96,15 @@ func (server *Server) listRoom(c *Client) {
 	}
 	c.msg(fmt.Sprintf("available rooms to join: %s", strings.Join(rooms, ", ")))
 }
+
+func (server *Server) msg(c *Client, args []string) {
+	if len(args) < 2 {
+		c.msg("message is required. usage:/msg <MSG>")
+		return
+	}
+
+	msg := strings.Join(args[1:], " ")
+	c.room.broadcast(c, c.name + ": "+msg)
+}
+
+
