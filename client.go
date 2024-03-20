@@ -32,6 +32,12 @@ func (client *Client) readInput() {
 				client: client,
 				args: args,
 			}
+		case "/join":
+			client.actions <- Action{
+				id: ACT_JOIN,
+				client: client,
+				args: args,
+			} 
 		default:
 			client.error(fmt.Errorf("invalid action: %s", action))
 		}
