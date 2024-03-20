@@ -52,7 +52,12 @@ func (client *Client) readInput() {
 				client: client,
 				args: args,
 			}
-		
+		case "/leave":
+			client.actions <- Action{
+				id: ACT_LEAVE,
+				client: client,
+				args: args,
+			}
 		default:
 			client.error(fmt.Errorf("invalid action: %s", action))
 		}
