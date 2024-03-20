@@ -7,7 +7,7 @@ const (
 	ACT_JOIN
 	ACT_ROOMS
 	ACT_MSG
-	ACT_QUIT
+	ACT_LEAVE
 )
 
 type Action struct {

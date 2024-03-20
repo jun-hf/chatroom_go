@@ -30,8 +30,8 @@ func (server *Server) run() {
 			server.listRoom(action.client)
 		case ACT_MSG:
 			server.msg(action.client, action.args)
-		case ACT_QUIT:
-			server.quit(action.client, action.args)
+		case ACT_LEAVE:
+			server.leave(action.client, action.args)
 		}
 
 	}
@@ -105,6 +105,15 @@ func (server *Server) msg(c *Client, args []string) {
 
 	msg := strings.Join(args[1:], " ")
 	c.room.broadcast(c, c.name + ": "+msg)
+}
+
+func (server *Server) leave(c *Client) {
+	log.Printf("client has left the chat: %s", c.conn.RemoteAddr().String())
+
+	server.leaveCurrentRoom(c)
+
+	c.msg("Goodbye")
+	c.conn.Close()
 }
 
 
