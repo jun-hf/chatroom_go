@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"net"
 	"strings"
-
-	"golang.org/x/text/cases"
 )
 
 type Client struct {
