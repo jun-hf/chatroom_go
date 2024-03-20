@@ -31,7 +31,7 @@ func (server *Server) run() {
 		case ACT_MSG:
 			server.msg(action.client, action.args)
 		case ACT_LEAVE:
-			server.leave(action.client, action.args)
+			server.leave(action.client)
 		}
 
 	}
