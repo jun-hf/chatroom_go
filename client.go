@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net"
 	"strings"
+
+	"golang.org/x/text/cases"
 )
 
 type Client struct {
@@ -37,7 +39,20 @@ func (client *Client) readInput() {
 				id: ACT_JOIN,
 				client: client,
 				args: args,
-			} 
+			}
+		case "/rooms":
+			client.actions <- Action{
+				id: ACT_ROOMS,
+				client: client,
+				args: args,
+			}
+		case "/msg":
+			client.actions <- Action{
+				id: ACT_MSG,
+				client: client,
+				args: args,
+			}
+		
 		default:
 			client.error(fmt.Errorf("invalid action: %s", action))
 		}
